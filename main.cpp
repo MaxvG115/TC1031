@@ -1,7 +1,7 @@
 /*===============================*
 <Autores>
 +Vicente Viera Guízar, ID: A01639784
-+
++Maximiliano Villegas Garcia. ID: A01635825
 +
 </Autores>
 =================================*
@@ -11,6 +11,7 @@
 #include <string>
 #include <fstream>
 #include <map>
+#include <vector>
 
 using namespace std;
 
