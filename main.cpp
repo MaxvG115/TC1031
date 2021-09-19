@@ -17,16 +17,38 @@ using namespace std;
 
 //estructura con los datos de cada registro
 struct record{
-string month;
-string day;
-string hr;
-string min;
-string sec;
-string IP;
-string status;
-};
+    public:
+        string month;
+        string day;
+        string hr;
+        string min;
+        string sec;
+        string IP;
+        string status;
 
-//funcion para pasar de meses a numeros
+        //funcion para comparar dos fechas
+        bool operator<=(record& a){
+            if(stoi(this->month)<stoi(a.month)){
+                return true;
+            }else if(stoi(this->month)==stoi(a.month)){
+                if(stoi(this->day)<stoi(a.day)){
+                    return true;
+                }else if(stoi(this->day)==stoi(a.day)){
+                    if(stoi(this->hr)<stoi(a.hr)){
+                        return true;
+                    }else if(stoi(this->hr)==stoi(a.hr)){
+                        if(stoi(this->min)<stoi(a.min)){
+                            return true;
+                        }else if(stoi(this->min)==stoi(a.min)){
+                            if(stoi(this->sec)<=stoi(a.sec)){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+};
 
 //genero el map con los meses y su valor
 map<string,string> Map {
@@ -44,6 +66,7 @@ map<string,string> Map {
     {"Dec","12"},
 };
 
+//funcion para pasar de meses a numeros
 string mon2num(string month){
     //regreso el valor numerico del map
     return Map.find(month)->second;
@@ -51,33 +74,33 @@ string mon2num(string month){
 
 //funcion para leer archivo
 void readFile(vector <record> &Vector){
-record line;
-string sline;
-ifstream file;//objeto para leer archivo
-file.open("bitacora.txt");
+    record line;
+    string sline;
+    ifstream file;//objeto para leer archivo
+    file.open("bitacora.txt");
 
-if(file.fail())
-{
-    cout << "ERROR, no se puede visualizar el archivo" << endl;
-}
+    if(file.fail())
+    {
+        cout << "ERROR, no se puede visualizar el archivo" << endl;
+    }
 
-//ciclo para identificar el significado de los datos de cada registro
-while (!file.eof()){
-  getline(file, line.month, ' ');
-  getline(file, line.day, ' ');
-  getline(file, line.hr, ':' );
-  getline(file, line.min, ':' );
-  getline(file, line.sec, ' ' );
-  getline(file, line.IP, ' ' );
-  getline(file, line.status, ' ' );
-  mon2num(line.month);
-  Vector.push_back(line);
-}
-file.close();
+    //ciclo para identificar el significado de los datos de cada registro
+    while (!file.eof()){
+        getline(file, line.month, ' ');
+        getline(file, line.day, ' ');
+        getline(file, line.hr, ':' );
+        getline(file, line.min, ':' );
+        getline(file, line.sec, ' ' );
+        getline(file, line.IP, ' ' );
+        getline(file, line.status, ' ' );
+        line.month=mon2num(line.month);
+        Vector.push_back(line);
+    }
+    file.close();
 }
 
 int main(){
-    cout<<mon2num("Dec");
+
 
     return 0;
 }
