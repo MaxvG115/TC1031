@@ -126,8 +126,7 @@ int main(){
     vector<record> d;
     readFile(d);
     printFile(d);
-    cout<<"*"<<d[2].month<<"*";
-    cout<<"*"<<d[3].month<<"*";
+   
 
 
     return 0;
