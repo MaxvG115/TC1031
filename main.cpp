@@ -147,9 +147,7 @@ int partition(vector<record>& v, int low, int high) {
 void quickSort(vector<record>& v, int low, int high) {
   if(low < high){
     int p = partition(v, low, high);
-
     quickSort(v, low, p - 1);
-
     quickSort(v, p + 1, high);
   }
 }
