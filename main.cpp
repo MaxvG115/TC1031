@@ -90,9 +90,9 @@ void readFile(vector <record> &Vector){
             getline(file, line.min, ':' );
             getline(file, line.sec, ' ' );
             getline(file, line.IP, ' ' );
-            getline(file, line.status, ' ' );
-            aux=mon2num(line.month);
-            line.month=aux;
+            getline(file, line.status);
+
+            line.month=mon2num(line.month);
             Vector.push_back(line);
         }
     }
@@ -125,14 +125,10 @@ void printFile(vector<record> &Vector){
 int main(){
     vector<record> d;
     readFile(d);
-    cout<< d[1].month << " ";
-        cout << d[1].day << " ";
-        cout << d[1].hr << ":";
-        cout << d[1].min << ":";
-        cout << d[1].sec << " ";
-        cout << d[1].IP << " ";
-        cout << d[1].status << endl;
-        printFile(d);
+    printFile(d);
+    cout<<"*"<<d[2].month<<"*";
+    cout<<"*"<<d[3].month<<"*";
+
 
     return 0;
 }
