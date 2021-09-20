@@ -122,9 +122,42 @@ void printFile(vector<record> &Vector){
     newfile.close();
 }
 
+void swap(record *a, record *b) {
+  record t = *a;
+  *a = *b;
+  *b = t;
+}
+
+
+int partition(vector<record>& v, int low, int high) {
+  record pivot = v[high];
+  int i = (low - 1);
+
+  for (int j = low; j < high; j++) {
+    if (v[j] <= pivot) {
+      i++; 
+      swap(&v[i], &v[j]);
+    }
+  }
+  
+  swap(&v[i + 1], &v[high]);
+  return (i + 1);
+}
+
+void quickSort(vector<record>& v, int low, int high) {
+  if(low < high){
+    int p = partition(v, low, high);
+
+    quickSort(v, low, p - 1);
+
+    quickSort(v, p + 1, high);
+  }
+}
+
 int main(){
     vector<record> d;
     readFile(d);
+    quickSort(d,0,d.size()-1);
     printFile(d);
    
 
