@@ -75,32 +75,64 @@ string mon2num(string month){
 //funcion para leer archivo
 void readFile(vector <record> &Vector){
     record line;
-    string sline;
+    string aux;
     ifstream file;//objeto para leer archivo
     file.open("bitacora.txt");
 
-    if(file.fail())
-    {
-        cout << "ERROR, no se puede visualizar el archivo" << endl;
-    }
-
-    //ciclo para identificar el significado de los datos de cada registro
-    while (!file.eof()){
-        getline(file, line.month, ' ');
-        getline(file, line.day, ' ');
-        getline(file, line.hr, ':' );
-        getline(file, line.min, ':' );
-        getline(file, line.sec, ' ' );
-        getline(file, line.IP, ' ' );
-        getline(file, line.status, ' ' );
-        line.month=mon2num(line.month);
-        Vector.push_back(line);
+    if(file.fail()){
+        exit(0);
+    }else{
+        //ciclo para identificar el significado de los datos de cada registro
+        while (!file.eof()){
+            getline(file, line.month,' ');
+            getline(file, line.day, ' ');
+            getline(file, line.hr, ':' );
+            getline(file, line.min, ':' );
+            getline(file, line.sec, ' ' );
+            getline(file, line.IP, ' ' );
+            getline(file, line.status, ' ' );
+            aux=mon2num(line.month);
+            line.month=aux;
+            Vector.push_back(line);
+        }
     }
     file.close();
 }
 
-int main(){
+void imprime(vector<record>& x){
+    for(int i=0;i<x.size();i++){
+        cout<<x[i].month;
+    }
+}
 
+void printFile(vector<record> &Vector){
+    ofstream newfile("salida.txt");
+    if (newfile.fail()){
+        exit(0);
+    }
+    for (int i = 0; i < Vector.size(); i++){
+        newfile << Vector[i].month << " ";
+        newfile << Vector[i].day << " ";
+        newfile << Vector[i].hr << ":";
+        newfile << Vector[i].min << ":";
+        newfile << Vector[i].sec << " ";
+        newfile << Vector[i].IP << " ";
+        newfile << Vector[i].status << endl;
+    }
+    newfile.close();
+}
+
+int main(){
+    vector<record> d;
+    readFile(d);
+    cout<< d[1].month << " ";
+        cout << d[1].day << " ";
+        cout << d[1].hr << ":";
+        cout << d[1].min << ":";
+        cout << d[1].sec << " ";
+        cout << d[1].IP << " ";
+        cout << d[1].status << endl;
+        printFile(d);
 
     return 0;
 }
