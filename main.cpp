@@ -72,6 +72,12 @@ string mon2num(string month){
     return Map.find(month)->second;
 }
 
+//funcion para pasar de numero a mes
+string num2mon(string month){
+    //regreso el valor numerico del map
+    return Map.find(month)->first;
+}
+
 //funcion para leer archivo
 void readFile(vector <record> &Vector){
     record line;
@@ -152,12 +158,32 @@ void quickSort(vector<record>& v, int low, int high) {
   }
 }
 
+int binarySearch(vector<record>& v, int m,int d, int low, int high) {
+  
+	// Repeat until the pointers low and high meet each other
+  while (low <= high) {
+    int mid = low + (high - low) / 2;
+
+    if (stoi(v[mid].month) == m && stoi(v[mid].day)==d)
+      return mid;
+
+    if (stoi(v[mid].month) < m && stoi(v[mid].day) < d)
+      low = mid + 1;
+
+    else
+      high = mid - 1;
+  }
+
+  return -1;
+}
+
 int main(){
     vector<record> d;
     readFile(d);
     quickSort(d,0,d.size()-1);
     printFile(d);
    
+   cout<<binarySearch(d,7,13,0,d.size()-1);
 
 
     return 0;
