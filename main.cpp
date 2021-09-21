@@ -180,7 +180,7 @@ int binarySearch(vector<record>& v, int m, int low, int high) {
 }
 
 //segunda parte busqueda: encontramos día limite superior
-int linearSearch(vector<record>& v, int mon,int d){
+int linearSearchU(vector<record>& v, int mon,int d){
     //encontramos el indice de algua posicion del mes
     int m=binarySearch(v,mon,0,v.size()-1);
     //buscamos el primer indice donde inicia el mes
@@ -200,12 +200,30 @@ int linearSearch(vector<record>& v, int mon,int d){
     return j+1;
 }
 
+//busqueda lineal para el indice inferior
+int linearSearchL(vector<record>& v, int mon,int d){
+    //encontramos el indice de algua posicion del mes
+    int m=binarySearch(v,mon,0,v.size()-1);
+    //buscamos el primer indice donde inicia el mes
+    int i=m;
+    while(stoi(v[i].month)==mon){
+        i--;
+    }
+    //hacemos busqueda lineal desde el primer día del mes
+    int j=(i+1);
+    do{
+        j++;
+    }while(stoi(v[j].day)<=d);
+    return j;
+}
+
 int main(){
     vector<record> d;
     readFile(d);
     quickSort(d,0,d.size()-1);
-    cout<<linearSearch(d,9,3)<<endl;
-    cout<<binarySearch(d,9,0,d.size()-1);
+    cout<<linearSearchU(d,9,3)<<endl;
+    //cout<<binarySearch(d,9,0,d.size()-1);
+    cout<<linearSearchL(d,9,4)<<endl;
 
   
 
