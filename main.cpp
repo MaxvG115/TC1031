@@ -264,30 +264,41 @@ void printRange(int u, int l,int it){
 }
 
 int main(){
+    //creamos el vector
     vector<record> d;
+    //leemos el archivo y asignamos valores en structs en d
     readFile(d);
+    //ordenamos el vector generado
     quickSort(d,0,d.size()-1);
+    //leemos los datos del vector y los guardamos en un txt con las fechas ya cambiadas
     printFile(d);
+
+    //generamos las variables iniciales para el menu
     //con r = 0 se sale
-    int r;
+    int controlador=1;
     int contador = 0;
-    cin >> r;
+
+    //iniciamos el menu
     do{
-      if(r==0){
-        break;
-      }else{
+        //sumamos el contador
         contador++;
         int m1,d1,m2,d2;
+
+        //pedimos los datos
         cin >> m1;
         cin >> d1;
         cin >> m2;
         cin >> d2;
+
+        //obtenemos los margenes para mostrarlos en el txt
         int u = linearSearchU(d,m1,d1);
         int l = linearSearchL(d,m2,d2);
+
+        //creamos el documento con los dotos en ese intervalo
         printRange(u,l,contador);
-        cin >> r;
-      }
-    }while(r != 0);
-    //cout<<binarySearch(d,9,0,d.size()-1);
+
+        cin >> controlador;
+    }while(controlador != 0);
+    
     return 0;
 }
