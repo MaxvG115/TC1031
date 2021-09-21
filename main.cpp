@@ -91,11 +91,11 @@ string mon2num(string month){
 
 //funcion para pasar de numero a mes
 string num2mon(string month){
-    //regreso el valor numerico del map
+    //regreso el valor de texto del map
     return Map2.find(month)->second;
 }
 
-//funcion para leer archivo
+//funcion para leer archivo y guardar los datos en un vector
 void readFile(vector <record> &Vector){
     record line;
     string aux;
@@ -122,12 +122,7 @@ void readFile(vector <record> &Vector){
     file.close();
 }
 
-void imprime(vector<record>& x){
-    for(int i=0;i<x.size();i++){
-        cout<<x[i].month;
-    }
-}
-
+//generamos un archivo txt con los valores ya ordenados y con los meses escritos con letra
 void printFile(vector<record> Vector){
     ofstream newfile("Bitacora_ordenada.txt");
     if (newfile.fail()){
@@ -145,13 +140,14 @@ void printFile(vector<record> Vector){
     newfile.close();
 }
 
+//funcion de intercambio de variables
 void swap(record *a, record *b) {
   record t = *a;
   *a = *b;
   *b = t;
 }
 
-
+//hacemos la particion de quicksort
 int partition(vector<record>& v, int low, int high) {
   record pivot = v[high];
   int i = (low - 1);
@@ -167,6 +163,7 @@ int partition(vector<record>& v, int low, int high) {
   return (i + 1);
 }
 
+//ordenamos el vector con quick sort
 void quickSort(vector<record>& v, int low, int high) {
   if(low < high){
     int p = partition(v, low, high);
@@ -178,8 +175,6 @@ void quickSort(vector<record>& v, int low, int high) {
 //algoritmo de busqueda
 //primera parte: encontramos el mes con busqueda binaria
 int binarySearch(vector<record>& v, int m, int low, int high) {
-  
-	// Repeat until the pointers low and high meet each other
   while (low <= high) {
     int mid = low + (high - low) / 2;
 
