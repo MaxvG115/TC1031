@@ -47,6 +47,7 @@ struct record{
                     }
                 }
             }
+          return 0;
         }
 };
 
@@ -237,7 +238,7 @@ int linearSearchL(vector<record>& v, int mon,int d){
 void printRange(int u, int l,int it){
     //declaro variables iniciales
     ifstream file;
-    ofstream fileS("salida"+to_string(it));
+    ofstream fileS("salida"+to_string(it)+".txt");
     string txt;
     vector<string> salida;
 
@@ -255,8 +256,8 @@ void printRange(int u, int l,int it){
     }
 
     //lo escribimos en el nuevo documento dentro de los limites
-    for(int i =l;i<=u;i++){
-        fileS<<salida[i]<<endl;
+    for(int i = u;i<l;i++){
+        fileS << salida[i] << endl;
     }
     fileS.close();
     file.close();
@@ -267,10 +268,26 @@ int main(){
     readFile(d);
     quickSort(d,0,d.size()-1);
     printFile(d);
-    int u=linearSearchU(d,9,3);
-    int l=linearSearchL(d,9,4);
-    printRange(u,l,1);
+    //con r = 0 se sale
+    int r;
+    int contador = 0;
+    cin >> r;
+    do{
+      if(r==0){
+        break;
+      }else{
+        contador++;
+        int m1,d1,m2,d2;
+        cin >> m1;
+        cin >> d1;
+        cin >> m2;
+        cin >> d2;
+        int u = linearSearchU(d,m1,d1);
+        int l = linearSearchL(d,m2,d2);
+        printRange(u,l,contador);
+        cin >> r;
+      }
+    }while(r != 0);
     //cout<<binarySearch(d,9,0,d.size()-1);
-
     return 0;
 }
