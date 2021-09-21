@@ -158,16 +158,18 @@ void quickSort(vector<record>& v, int low, int high) {
   }
 }
 
-int binarySearch(vector<record>& v, int m,int d, int low, int high) {
+//algoritmo de busqueda
+//primera parte: encontramos el mes con busqueda binaria
+int binarySearch(vector<record>& v, int m, int low, int high) {
   
 	// Repeat until the pointers low and high meet each other
   while (low <= high) {
     int mid = low + (high - low) / 2;
 
-    if (stoi(v[mid].month) == m && stoi(v[mid].day)==d)
+    if (stoi(v[mid].month) == m)
       return mid;
 
-    if (stoi(v[mid].month) < m && stoi(v[mid].day) < d)
+    if (stoi(v[mid].month) < m)
       low = mid + 1;
 
     else
@@ -177,13 +179,35 @@ int binarySearch(vector<record>& v, int m,int d, int low, int high) {
   return -1;
 }
 
+//segunda parte busqueda: encontramos día limite superior
+int linearSearch(vector<record>& v, int mon,int d){
+    //encontramos el indice de algua posicion del mes
+    int m=binarySearch(v,mon,0,v.size()-1);
+    //buscamos el primer indice donde inicia el mes
+    int i=m;
+    while(stoi(v[i].month)==mon){
+        i--;
+    }
+    //hacemos busqueda lineal desde el primer día del mes
+    int j=(i+1);
+    do{
+        if(d==1){
+            break;
+        }else{
+            j++;
+        }
+    }while(stoi(v[j].day)!=d);
+    return j+1;
+}
+
 int main(){
     vector<record> d;
     readFile(d);
     quickSort(d,0,d.size()-1);
-    printFile(d);
-   
-   cout<<binarySearch(d,7,13,0,d.size()-1);
+    cout<<linearSearch(d,9,3)<<endl;
+    cout<<binarySearch(d,9,0,d.size()-1);
+
+  
 
 
     return 0;
