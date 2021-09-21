@@ -297,8 +297,9 @@ int main(){
         //creamos el documento con los dotos en ese intervalo
         printRange(u,l,contador);
 
+        cin.ignore();
         cin >> controlador;
     }while(controlador != 0);
-    
+
     return 0;
 }
