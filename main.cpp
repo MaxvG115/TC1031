@@ -66,6 +66,22 @@ map<string,string> Map {
     {"Dec","12"},
 };
 
+//genero el map con los meses y su valor
+map<string,string> Map2 {
+    {"1","Jan"},
+    {"2","Feb"},
+    {"3","Mar"},
+    {"4","Apr"},
+    {"5","May"},
+    {"6","Jun"},
+    {"7","Jul"},
+    {"8","Aug"},
+    {"9","Sep"},
+    {"10","Oct"},
+    {"11","Nov"},
+    {"12","Dec"},
+};
+
 //funcion para pasar de meses a numeros
 string mon2num(string month){
     //regreso el valor numerico del map
@@ -75,7 +91,7 @@ string mon2num(string month){
 //funcion para pasar de numero a mes
 string num2mon(string month){
     //regreso el valor numerico del map
-    return Map.find(month)->first;
+    return Map2.find(month)->second;
 }
 
 //funcion para leer archivo
@@ -111,13 +127,13 @@ void imprime(vector<record>& x){
     }
 }
 
-void printFile(vector<record> &Vector){
-    ofstream newfile("salida.txt");
+void printFile(vector<record> Vector){
+    ofstream newfile("Bitacora_ordenada.txt");
     if (newfile.fail()){
         exit(0);
     }
     for (int i = 0; i < Vector.size(); i++){
-        newfile << Vector[i].month << " ";
+        newfile << num2mon(Vector[i].month) << " ";
         newfile << Vector[i].day << " ";
         newfile << Vector[i].hr << ":";
         newfile << Vector[i].min << ":";
@@ -217,16 +233,44 @@ int linearSearchL(vector<record>& v, int mon,int d){
     return j;
 }
 
+//funcion imprimir rango de fechas
+void printRange(int u, int l,int it){
+    //declaro variables iniciales
+    ifstream file;
+    ofstream fileS("salida"+to_string(it));
+    string txt;
+    vector<string> salida;
+
+    //abrimos el archivo
+    file.open("Bitacora_ordenada.txt");
+
+    //leemos y guardamos cada linea en un espacio del vector
+    if (file.fail()){
+        exit(0);
+    }
+
+    while (!file.eof()){
+            getline(file,txt);
+            salida.push_back(txt);
+    }
+
+    //lo escribimos en el nuevo documento dentro de los limites
+    for(int i =l;i<=u;i++){
+        fileS<<salida[i]<<endl;
+    }
+    fileS.close();
+    file.close();
+}
+
 int main(){
     vector<record> d;
     readFile(d);
     quickSort(d,0,d.size()-1);
-    cout<<linearSearchU(d,9,3)<<endl;
+    printFile(d);
+    int u=linearSearchU(d,9,3);
+    int l=linearSearchL(d,9,4);
+    printRange(u,l,1);
     //cout<<binarySearch(d,9,0,d.size()-1);
-    cout<<linearSearchL(d,9,4)<<endl;
-
-  
-
 
     return 0;
 }
